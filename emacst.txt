@@ -1,0 +1,65 @@
+miniemacs
+
+
+
+https://www.linkedin.com/jobs/search/?currentJobId=2747312275&f_C=7572649&geoId=103873152&location=Beijing%2C%20China Airwallex
+
+https://www.linkedin.com/jobs/search/?currentJobId=2879299430&keywords=EBANX EBANX
+
+Okay, my current salary is 38k RMB per month after tax. And I am fluent in English at work.
+
+https://medium.com/helpshift-engineering/configuring-emacs-from-scratch-intro-3157bed9d040
+
+C-x b *Help* <RET> switch buffer 
+q quit-window 
+C-h v variables detail 
+C-x o switch to window 
+C-h k 
+C-x C-e execute this code
+M-x package-refresh-contents
+M-x package-list-packages
+M-x load-theme <RET> spacemacs-dark <RET>
+M-x customize <RET>
+M-< Move to the start of the buffer
+M-> Move to the end of the buffer (end-of-buffer)
+M-v page up 
+C-v page down 
+
+# use-package
+https://github.com/jwiegley/use-package A use-package declaration for simplifying your .emacs
+M-x package-install <RET> use-package <RET>
+
+# theme 
+dracula 
+
+# company COMPlete ANY 
+M-x package-install <RET> company <RET>
+(global-company-mode t)
+
+# Golang 
+https://blog.rfmpie.com/posts/emacs-lsp/
+
+https://emacs-lsp.github.io/lsp-mode/page/lsp-gopls/
+https://github.com/golang/tools/tree/master/gopls#installation
+
+# misc
+
+https://marcohassan.github.io/bits-of-experience/pages/emacs/
+  exec-paht-from-shell 
+  https://github.com/purcell/exec-path-from-shell
+
+https://superuser.com/questions/422968/how-to-find-out-current-font-used-in-my-emacs
+  查找使用字体
+
+https://emacs.stackexchange.com/questions/169/how-do-i-reload-a-file-in-a-buffer
+  重新加载文件
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Lisp-Eval.html
+  eval buffer
+
+https://www.emacswiki.org/emacs/IndentationBasics
+  indent
+
+https://stackoverflow.com/questions/63822685/file-exists-but-cannot-be-read-but-third-try-is-a-charm-with-emacs-os-x-ca
+https://emacs.stackexchange.com/questions/53026/how-to-restore-file-system-access-in-macos-catalina
+  "File exists, but cannot be read"
