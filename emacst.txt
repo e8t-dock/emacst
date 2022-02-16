@@ -1,6 +1,10 @@
 miniemacs
 
+/Applications/Emacs.app/Contents/MacOS/Emacs --help
+/Applications/Emacs.app/Contents/MacOS/Emacs --version
+GNU Emacs 26.3
 
+https://emacsformacos.com/
 
 https://www.linkedin.com/jobs/search/?currentJobId=2747312275&f_C=7572649&geoId=103873152&location=Beijing%2C%20China Airwallex
 
@@ -15,7 +19,6 @@ q quit-window
 C-h v variables detail 
 C-x o switch to window 
 C-h k 
-C-x C-e execute this code
 M-x package-refresh-contents
 M-x package-list-packages
 M-x load-theme <RET> spacemacs-dark <RET>
@@ -24,25 +27,138 @@ M-< Move to the start of the buffer
 M-> Move to the end of the buffer (end-of-buffer)
 M-v page up 
 C-v page down 
+M-g g and M-g M-g Goto Line ‘goto-line’
+C-p
+C-n
+C-f
+M-f
+C-b
+M-b
+
+- execute code 
+C-x C-e execute this code
 
 # use-package
+
 https://github.com/jwiegley/use-package A use-package declaration for simplifying your .emacs
 M-x package-install <RET> use-package <RET>
 
-# theme 
+# theme
+
 dracula 
 
 # company COMPlete ANY 
+
 M-x package-install <RET> company <RET>
 (global-company-mode t)
 
-# Golang 
+# Golang
+
 https://blog.rfmpie.com/posts/emacs-lsp/
 
 https://emacs-lsp.github.io/lsp-mode/page/lsp-gopls/
 https://github.com/golang/tools/tree/master/gopls#installation
 
+# Web
+
+# Markdown
+
+Preview
+
+# ELisp
+
+https://www.gnu.org/software/emacs/manual/html_node/elisp/index.html
+
+https://www.emacswiki.org/emacs/LearnEmacsLisp
+
+https://zhuanlan.zhihu.com/p/343924066 Emacs 入门（二）—— Elisp语言（一）
+
+http://xahlee.info/emacs/emacs/elisp_examples.html
+
+http://xahlee.info/emacs/emacs/elisp_printing.html
+
+- provide
+
+(require 'file-name)
+file-name.el
+(provide 'file-name)
+
+# markdown
+
+https://blog.bitsandbobs.net/blog/emacs-markdown-live-preview/
+
+https://www.scien.cx/2021/07/25/write-effective-markdown-in-emacs-with-live-preview/ 不太行
+https://github.com/seagle0128/grip-mode#customize
+https://github.com/joeyespo/grip GitHub Readme Instant Preview (Python)
+
+# clojure
+
+打开 clojure 文件 core.clj
+
+M-x cider-jack-in
+
+# dotfiles
+
+https://sites.google.com/site/steveyegge2/my-dot-emacs-file steve yegge
+
 # misc
+
+- minibuffer
+https://www.emacswiki.org/emacs/MiniBuffer
+- copy / paste
+
+使用 GUI 版本 (避免折腾)
+
+https://newbedev.com/how-to-paste-to-emacs-from-clipboard-on-osx
+http://xahlee.info/emacs/emacs/emacs_using_register.html
+https://linuxhint.com/copying-and-pasting-in-emacs/
+
+- indent
+
+;; Python Hook
+
+(add-hook 'python-mode-hook
+          (function (lambda ()
+                      (setq indent-tabs-mode nil
+                            tab-width 2))))
+
+https://stackoverflow.com/questions/4251159/set-python-indent-to-2-spaces-in-emacs-23
+
+- reuse hook
+
+(defun my-lisp-hook ()
+  (paredit-mode 1)
+  (aggressive-indent-mode 1)
+  (raindbow-delimiter-mode 1))
+(add-hook 'emacs-lisp-mode-hook 'my-lisp-hook)
+(add-hook 'lisp-mode-hook 'my-lisp-hook)
+(add-hook 'clojure-mode-hook 'my-lisp-hook)
+(add-hook 'cider-mode-hook 'my-lisp-hook)
+
+https://stackoverflow.com/questions/36092613/emacs-clojure-mode-add-multiple-hooks
+
+- recent files
+
+https://stackoverflow.com/questions/50417/how-do-i-get-list-of-recent-files-in-gnu-emacs
+
+- swap window
+
+https://stackoverflow.com/questions/1510091/with-emacs-how-do-you-swap-the-position-of-2-windows
+
+- minibuffer command
+(defun say ()
+  (interactive)  ;; 可以在 M-x 中调用的关键代码
+  (message "WORK"))
+
+- problem
+Load a theme can run lisp mode, Really load?
+Treat thie theme as safe in furture?
+
+https://github.com/Malabarba/smart-mode-line/issues/100
+
+load-path
+  C-h v load-path RET’ gives you the documentation variable ‘load-path
+
 
 https://marcohassan.github.io/bits-of-experience/pages/emacs/
   exec-paht-from-shell 
