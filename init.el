@@ -7,19 +7,38 @@
 
 ;; Debug
 
-;; (setq debug-on-error t)
+(setq debug-on-error t)
 
-;; Load config files
+;; Config
 
-;; (add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
-;; (require 'init')
+(setq package-check-signature nil)
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load-file custom-file)
+;; Config GUI
+
+(when (member "Menlo" (font-family-list))
+  (set-frame-font "Menlo-16" t t))
+
+(setq default-frame-alist
+      '((height . 35) (width . 85) (top . 20) (left . 20) (menu-bar-lines . 20) (tool-bar-lines . 0)))
+
+(global-linum-mode)
+
+
+(setq inhibit-startup-message t)
+
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+
+(global-hl-line-mode t)
 
 ;; Config elpa
 (setq package-enable-at-startup nil)
 (require 'package)
+
+(setq package-user-dir
+      (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version) user-emacs-directory))
+
 (add-to-list 'package-archives '("gnu-ec" . "http://elpa.emacs-china.org/gnu/") t)
 (add-to-list 'package-archives '("melpa-ec" . "http://elpa.emacs-china.org/melpa/") t)
 (package-initialize)
@@ -32,15 +51,6 @@
 ;; 	(when (not (package-installed-p p))
 ;; 		(package-install p)))
 
-
-;; Load theme 
-
-(load-theme 'dracula)
-
-;; (use-package dracula-theme
-;; 						 :config
-;; 						 (load-theme 'dracula))
-
 ;; Config packages 
 
 ;; check if use-package is installed 
@@ -48,6 +58,11 @@
 (when (not (package-installed-p 'use-package))
 	(package-refresh-contents)
 	(package-install 'use-package))
+
+(use-package dracula-theme
+						 :ensure t
+						 :config
+						 (load-theme 'dracula t))
 
 ;; company 
 
@@ -100,28 +115,37 @@
 
 (use-package exec-path-from-shell
   :ensure t)
+
+(defun init-shell-hook ()
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-envs '("PATH"))))
+
 (if *is-a-mac*
-  (add-hook 'after-init-hook 'exec-path-from-shell-initialize))
+  (add-hook 'after-init-hook 'init-shell-hook))
+  ;; (add-hook 'after-init-hook 'exec-path-from-shell-initialize))
+
+;; Load config files
+
+; (add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
+;; (require 'init)
+
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load-file custom-file)
+
+(add-to-list 'load-path (expand-file-name "deps" user-emacs-directory))
+
+(require 'deps)
+(require 'clojure)
+(require 'markdown)
+
 
 ;; Config UI
 
-(when (member "Menlo" (font-family-list))
-  (set-frame-font "Menlo-16" t t))
+;; - Load theme 
 
-(setq default-frame-alist
-      '((height . 35) (width . 85) (top . 20) (left . 20) (menu-bar-lines . 20) (tool-bar-lines . 0)))
+;; (load-theme 'dracula)
 
-(global-linum-mode)
-
-;; Config GUI
-
-(setq inhibit-startup-message t)
-
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-
-(global-hl-line-mode t)
 
 ;; Use `command` as `meta` in macOS
 ;; (setq mac-command-modifier 'meta')
@@ -136,3 +160,48 @@
 	"Revert buffer without confirmation."
 	(interactive)
 	(revert-buffer :ignore-auto :noconfirm))
+
+(defun say () 
+  (interactive)
+  (message "WORK"))
+
+;; 切换窗口分割方向
+(defun window-split-toggle ()
+  "Toggle between horizontal and vertical split with two windows."
+  (interactive)
+  (if (> (length (window-list)) 2)
+      (error "Can't toggle with more than 2 windows!")
+    (let ((func (if (window-full-height-p)
+                    #'split-window-vertically
+                  #'split-window-horizontally)))
+      (delete-other-windows)
+      (funcall func)
+      (save-selected-window
+        (other-window 1)
+        (switch-to-buffer (other-buffer))))))
+
+(defun reload ()
+  (interactive)
+  (load-file user-init-file))
+
+;;    ;; allow ido usage in as many contexts as possible. see
+;;    ;; customizations/navigation.el line 23 for a description
+;;    ;; of ido
+;;    ido-completing-read+
+;;
+;;    ;; Enhances M-x to allow easier execution of commands. Provides
+;;    ;; a filterable list of possible commands in the minibuffer
+;;    ;; http://www.emacswiki.org/emacs/Smex
+;;    smex
+;;
+;;    ;; project navigation
+;;    projectile
+;;
+;;    ;; colorful parenthesis matching
+;;    rainbow-delimiters
+;;
+;;    ;; edit html tags like sexps
+;;    tagedit
+;;
+;;    ;; git integration
+;;    magit
