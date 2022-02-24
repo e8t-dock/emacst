@@ -23,7 +23,6 @@
 
 (global-linum-mode)
 
-
 (setq inhibit-startup-message t)
 
 (tool-bar-mode -1)
@@ -33,6 +32,7 @@
 (global-hl-line-mode t)
 
 ;; Config elpa
+
 (setq package-enable-at-startup nil)
 (require 'package)
 
@@ -123,7 +123,13 @@
 
 (if *is-a-mac*
   (add-hook 'after-init-hook 'init-shell-hook))
-  ;; (add-hook 'after-init-hook 'exec-path-from-shell-initialize))
+;; (add-hook 'after-init-hook 'exec-path-from-shell-initialize))
+
+;; Emacs can automatically create backup files. This tells Emacs to
+;; put all backups in ~/.emacs.d/backups. More info:
+;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Backup-Files.html
+(setq backup-directory-alist `(("." . ,(concat user-emacs-directory
+                                               "backups"))))
 
 ;; Load config files
 
@@ -139,13 +145,11 @@
 (require 'clojure)
 (require 'markdown)
 
-
 ;; Config UI
 
 ;; - Load theme 
 
 ;; (load-theme 'dracula)
-
 
 ;; Use `command` as `meta` in macOS
 ;; (setq mac-command-modifier 'meta')
@@ -183,25 +187,3 @@
 (defun reload ()
   (interactive)
   (load-file user-init-file))
-
-;;    ;; allow ido usage in as many contexts as possible. see
-;;    ;; customizations/navigation.el line 23 for a description
-;;    ;; of ido
-;;    ido-completing-read+
-;;
-;;    ;; Enhances M-x to allow easier execution of commands. Provides
-;;    ;; a filterable list of possible commands in the minibuffer
-;;    ;; http://www.emacswiki.org/emacs/Smex
-;;    smex
-;;
-;;    ;; project navigation
-;;    projectile
-;;
-;;    ;; colorful parenthesis matching
-;;    rainbow-delimiters
-;;
-;;    ;; edit html tags like sexps
-;;    tagedit
-;;
-;;    ;; git integration
-;;    magit
