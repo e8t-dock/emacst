@@ -1,0 +1,23 @@
+;; allow ido usage in as many contexts as possible. see
+;; customizations/navigation.el line 23 for a description
+;; of ido
+ido-completing-read+
+
+;; Enhances M-x to allow easier execution of commands. Provides
+;; a filterable list of possible commands in the minibuffer
+;; http://www.emacswiki.org/emacs/Smex
+smex
+
+;; project navigation
+projectile
+
+;; edit html tags like sexps
+tagedit
+
+
+
+;; git integration
+magit
+
+;; colorful parenthesis matching
+rainbow-delimiters
